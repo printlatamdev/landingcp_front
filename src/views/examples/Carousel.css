@@ -1,0 +1,118 @@
+.deck-carousel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+  height: 100vh; /* Altura total del viewport */
+  overflow: hidden;
+  background-color: #000;
+}
+
+.deck-carousel-images {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 80%;
+  height: 100%;
+  /* Gradiente enmascarado para las orillas desvanecidas */
+  -webkit-mask: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
+  mask: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
+}
+
+.deck-carousel-image {
+  position: absolute;
+  width: 70%;
+  height: auto; /* Ajusta automáticamente la altura en proporción a la anchura */
+  max-height: 80%; /* Limita la altura máxima */
+  transition: transform 0.8s, opacity 0.8s;
+  transform-origin: center;
+  opacity: 0;
+  filter: blur(2px); /* Ligero desenfoque para imágenes de fondo */
+  object-fit: contain; /* Asegura que las imágenes mantengan su proporción sin deformarse */
+}
+
+/* Imagen actual */
+.deck-carousel-image.current {
+  transform: scale(1) translateX(0);
+  z-index: 2;
+  opacity: 1;
+  filter: none; /* Elimina el desenfoque para la imagen actual */
+}
+
+/* Imagen anterior */
+.deck-carousel-image.prev {
+  transform: scale(0.8) translateX(-50%);
+  z-index: 1;
+  opacity: 0.5; /* Opacidad reducida */
+  filter: blur(2px); /* Desenfoque */
+}
+
+/* Imagen siguiente */
+.deck-carousel-image.next {
+  transform: scale(0.8) translateX(50%);
+  z-index: 1;
+  opacity: 0.5; /* Opacidad reducida */
+  filter: blur(2px); /* Desenfoque */
+}
+
+.deck-carousel-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 3;
+}
+
+.deck-carousel-button.prev {
+  left: 10px;
+}
+
+.deck-carousel-button.next {
+  right: 10px;
+}
+
+/* --- Responsividad --- */
+
+/* Ajustes para pantallas medianas */
+@media (max-width: 1024px) {
+  .deck-carousel-image {
+    width: 80%; /* Aumenta ligeramente el ancho */
+    max-height: 70%; /* Ajusta la altura máxima */
+  }
+  .deck-carousel-button {
+    padding: 8px; /* Reduce el tamaño del botón */
+  }
+}
+
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 768px) {
+  .deck-carousel-image {
+    width: 90%; /* Imágenes más grandes para pantallas pequeñas */
+    max-height: 60%;
+  }
+  .deck-carousel-button {
+    padding: 6px;
+    font-size: 0.9rem; /* Texto más pequeño en los botones */
+  }
+}
+
+/* Ajustes para pantallas muy pequeñas (móviles) */
+@media (max-width: 480px) {
+  .deck-carousel {
+    height: 60vh; /* Reduce la altura total del carrusel */
+  }
+  .deck-carousel-image {
+    width: 100%; /* Ocupa todo el ancho disponible */
+    max-height: 50%; /* Limita la altura */
+  }
+  .deck-carousel-button {
+    padding: 5px;
+    font-size: 0.8rem;
+  }
+}
