@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import "./Carousel.css"; // Archivo CSS para el estilo
 
 const DeckCarousel = ({ images }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  // Memoize the handleNext function
+  const handleNext = useCallback(() => {
+    setCurrentIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
+  }, [images.length]);
+
   const handlePrev = () => {
     setCurrentIndex((prevIndex) => (prevIndex === 0 ? images.length - 1 : prevIndex - 1));
-  };
-
-  const handleNext = () => {
-    setCurrentIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
   };
 
   // Cambiar imagen automáticamente cada 3 segundos
@@ -19,7 +20,7 @@ const DeckCarousel = ({ images }) => {
     }, 3000);
 
     return () => clearInterval(interval);
-  }, [currentIndex]);
+  }, [handleNext]); // Include handleNext in the dependency array
 
   return (
     <div className="deck-carousel">
