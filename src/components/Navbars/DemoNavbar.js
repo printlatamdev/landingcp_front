@@ -7,7 +7,6 @@ import {
   Button,
   UncontrolledCollapse,
   DropdownMenu,
-  DropdownItem,
   DropdownToggle,
   UncontrolledDropdown,
   Media,
